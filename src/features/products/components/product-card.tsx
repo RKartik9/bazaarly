@@ -8,6 +8,7 @@ import { WishlistButton } from "@/features/wishlist/components/wishlist-button";
 import type { ProductCardDto } from "@/features/catalog/types";
 import { discountPercent, formatPrice } from "@/lib/money";
 import { cn } from "@/lib/utils";
+import { QuickAddButton } from "./quick-add-button";
 
 export function ProductCard({ product, priority = false, className }: { product: ProductCardDto; priority?: boolean; className?: string }) {
   const off = discountPercent(product.price, product.mrp);
@@ -88,6 +89,7 @@ export function ProductCard({ product, priority = false, className }: { product:
             </>
           )}
         </div>
+        <QuickAddButton product={product} className="mt-2" />
       </div>
     </article>
   );

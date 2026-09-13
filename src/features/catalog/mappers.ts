@@ -1,5 +1,5 @@
 import type { CategoryDoc, ProductDoc } from "@/lib/db/models";
-import type { CategoryDto, ProductCardDto, ProductDetailDto } from "./types";
+import type { CategoryDto, ProductCardDto, ProductDetailDto, QuickOption } from "./types";
 
 type LeanCategory = Omit<CategoryDoc, "_id" | "parent"> & {
   _id: { toString(): string };
@@ -24,6 +24,16 @@ export function toCategoryDto(doc: LeanCategory): CategoryDto {
   };
 }
 
+function toQuickOptions(doc: LeanProduct): QuickOption[] {
+  const axes = doc.variantAxes ?? [];
+  return doc.variants.map((v) => ({
+    sku: v.sku,
+    label: axes.map((axis) => v.attributes?.[axis]).filter(Boolean).join(" · ") || "Standard",
+    price: v.price,
+    stock: Math.max(0, v.stock - (v.reserved ?? 0)),
+  }));
+}
+
 export function toProductCard(doc: LeanProduct): ProductCardDto {
   return {
     id: doc._id.toString(),
@@ -40,6 +50,7 @@ export function toProductCard(doc: LeanProduct): ProductCardDto {
     dealEndsAt: doc.dealEndsAt ? doc.dealEndsAt.toISOString() : null,
     tags: doc.tags ?? [],
     variantCount: doc.variants.length,
+    options: toQuickOptions(doc),
   };
 }
 

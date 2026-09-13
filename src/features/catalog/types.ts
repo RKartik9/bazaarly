@@ -35,7 +35,10 @@ export type ProductCardDto = {
   dealEndsAt: string | null;
   tags: string[];
   variantCount: number;
+  options: QuickOption[];
 };
+
+export type QuickOption = { sku: string; label: string; price: number; stock: number };
 
 export type ProductDetailDto = ProductCardDto & {
   description: string;

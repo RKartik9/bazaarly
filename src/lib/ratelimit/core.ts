@@ -16,6 +16,7 @@ export const policies = {
   checkout: { requests: 15, windowSeconds: 60 },
   coupon: { requests: 6, windowSeconds: 60 },
   review: { requests: 5, windowSeconds: 300 },
+  contact: { requests: 3, windowSeconds: 600 },
   webhook: { requests: 120, windowSeconds: 60 },
   admin: { requests: 120, windowSeconds: 60 },
 } satisfies Record<string, LimitPolicy>;

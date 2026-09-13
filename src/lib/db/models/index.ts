@@ -9,3 +9,4 @@ export * from "./review";
 export * from "./wishlist";
 export * from "./coupon";
 export * from "./webhook-event";
+export * from "./contact-message";
